@@ -1,0 +1,12 @@
+{
+  "name": "trabalho2_biblioteca",
+  "version": "1.0.0",
+  "description": "```\r npm init -y\r ```",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
