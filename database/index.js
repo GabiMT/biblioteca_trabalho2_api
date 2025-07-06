@@ -5,4 +5,4 @@ const sequelize = new Sequelize({
     storage: './database.biblioteca.sqlite'
 });
 
-module.exports = sequelize
+module.exports = sequelize;
