@@ -1,8 +1,8 @@
 const express = require('express');
 const app = express();
-const livroRoutes = require('./routes/livros');
-const clienteRoutes = require('./routes/clientes');
-const emprestimoRoutes = require('./routes/emprestimos');
+const livroRoutes = require('./routes/livroRoute');
+const clienteRoutes = require('./routes/clienteRoute');
+const emprestimoRoutes = require('./routes/emprestimoRoute');
 
 app.use(express.json());
 app.use('/livros', livroRoutes);
