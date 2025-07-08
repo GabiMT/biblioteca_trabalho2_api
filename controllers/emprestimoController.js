@@ -24,16 +24,16 @@ const buscarEmprestimoPorId = async (req, res) => {
 
 const criarEmprestimo = async (req, res) => {
   try {
-    const { livroId, clienteId, dataEmprestimo, dataDevolucao } = req.body;
+    const { LivroId, ClienteId, dataEmprestimo, dataDevolucao } = req.body;
 
-    const livro = await Livro.findByPk(livroId);
+    const livro = await Livro.findByPk(LivroId);
     if (!livro) return res.status(404).json({ error: 'Livro não encontrado' });
     if (!livro.disponivel) return res.status(400).json({ error: 'Livro não está disponível' });
 
-    const cliente = await Cliente.findByPk(clienteId);
+    const cliente = await Cliente.findByPk(ClienteId);
     if (!cliente) return res.status(404).json({ error: 'Cliente não encontrado' });
 
-    const emprestimo = await Emprestimo.create({ livroId, clienteId, dataEmprestimo, dataDevolucao });
+    const emprestimo = await Emprestimo.create({ LivroId, ClienteId, dataEmprestimo, dataDevolucao });
 
     await livro.update({ disponivel: false });
 
@@ -47,10 +47,9 @@ const devolverLivro = async (req, res) => {
   try {
     const { id } = req.params;
     const emprestimo = await Emprestimo.findByPk(id);
-
     if (!emprestimo) return res.status(404).json({ error: 'Empréstimo não encontrado' });
 
-    const livro = await Livro.findByPk(emprestimo.livroId);
+    const livro = await Livro.findByPk(emprestimo.LivroId);
     await livro.update({ disponivel: true });
 
     await emprestimo.update({ dataDevolucao: new Date() });
@@ -67,7 +66,7 @@ const deletarEmprestimo = async (req, res) => {
     const emprestimo = await Emprestimo.findByPk(id);
     if (!emprestimo) return res.status(404).json({ error: 'Empréstimo não encontrado' });
 
-    const livro = await Livro.findByPk(emprestimo.livroId);
+    const livro = await Livro.findByPk(emprestimo.LivroId);
     if (livro) await livro.update({ disponivel: true });
 
     await Emprestimo.destroy({ where: { id } });
