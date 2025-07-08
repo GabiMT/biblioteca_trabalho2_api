@@ -77,10 +77,38 @@ const deletarEmprestimo = async (req, res) => {
   }
 };
 
+const atualizarEmprestimo = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { LivroId, ClienteId, dataEmprestimo, dataDevolucao } = req.body;
+
+    const emprestimo = await Emprestimo.findByPk(id);
+    if (!emprestimo) return res.status(404).json({ error: 'Empréstimo não encontrado' });
+
+    const livro = await Livro.findByPk(LivroId);
+    if (!livro) return res.status(404).json({ error: 'Livro não encontrado' });
+
+    const cliente = await Cliente.findByPk(ClienteId);
+    if (!cliente) return res.status(404).json({ error: 'Cliente não encontrado' });
+
+    await emprestimo.update({
+      LivroId,
+      ClienteId,
+      dataEmprestimo,
+      dataDevolucao,
+    });
+
+    res.status(200).json(emprestimo);
+  } catch (error) {
+    res.status(400).json({ error: error.message });
+  }
+};
+
 module.exports = {
   listarEmprestimos,
   buscarEmprestimoPorId,
   criarEmprestimo,
   devolverLivro,
   deletarEmprestimo,
+  atualizarEmprestimo,
 };
