@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const emprestimoController = require('../controllers/EmprestimoController');
+const emprestimoController = require('../controllers/emprestimoController');
 
 router.get('/', emprestimoController.listarEmprestimos);
 router.get('/:id', emprestimoController.buscarEmprestimoPorId);
